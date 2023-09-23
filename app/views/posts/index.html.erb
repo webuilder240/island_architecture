@@ -6,48 +6,13 @@
   </div>
 <% end %>
 
+<div id="onboarding-container"></div>
+
 <!-- Vue.jsがマウントされる部分 -->
-<div id="infinite-scroll" style="overflow: scroll;">
+<%# <div id="infinite-scroll" style="overflow: scroll;">
   <div v-for="post in posts" :key="post.id" class="post">
     <h2>{{ post.title }}</h2>
     <p>{{ post.body }}</p>
   </div>
   <div id="observer-target"></div> <!-- Intersection Observerが監視するターゲット -->
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-<script>
-  new Vue({
-    el: '#infinite-scroll',
-    data: {
-      posts: [],
-      page: 1,
-      observer: null
-    },
-    methods: {
-      async loadMore(entries) {
-        if(entries[0].isIntersecting) {
-          this.page += 1;
-          const response = await fetch(`/posts.json?page=${this.page}`);
-          const newPosts = await response.json();
-          this.posts = this.posts.concat(newPosts);
-        }
-      }
-    },
-    mounted() {
-      const options = {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0
-      };
-      
-      this.observer = new IntersectionObserver(this.loadMore, options);
-      this.observer.observe(document.querySelector("#observer-target"));
-    },
-    beforeDestroy() {
-      if (this.observer) {
-        this.observer.disconnect();
-      }
-    }
-  });
-</script>
+</div> %>

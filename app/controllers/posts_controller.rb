@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     params[:page] ||= 1
-    params[:limit] ||= 10
+    params[:limit] ||= 30
     @posts = Post.page(params[:page]).per(params[:limit])
   end
 
