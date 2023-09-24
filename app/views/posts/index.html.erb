@@ -1,12 +1,13 @@
+<a href="/page">  to Page</a>
 <!-- 最初にサーバーサイドでレンダリングされる部分 -->
 <% @posts.each do |post| %>
   <div class="post">
-    <h2><%= post.title %></h2>
-    <p><%= post.body %></p>
+    <%= link_to post_path(post) do %>
+      <h2><%= post.title %></h2>
+      <p><%= post.body %></p>
+    <% end %>
   </div>
 <% end %>
-
-<div id="onboarding-container"></div>
 
 <!-- Vue.jsがマウントされる部分 -->
 <%# <div id="infinite-scroll" style="overflow: scroll;">
@@ -16,3 +17,5 @@
   </div>
   <div id="observer-target"></div> <!-- Intersection Observerが監視するターゲット -->
 </div> %>
+
+<div id="onboarding-container"></div>

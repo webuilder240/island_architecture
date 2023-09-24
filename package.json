@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@hotwired/turbo-rails": "^7.3.0",
     "@rails/webpacker": "5.4.4",
+    "instantclick": "^3.1.0-2",
     "vue": "^3.3.4",
     "vue-loader": "^17.2.2",
     "vue-template-compiler": "^2.7.14",
