@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@barba/core": "^2.9.7",
     "@rails/webpacker": "5.4.4",
     "vue": "^3.3.4",
     "vue-loader": "^17.2.2",

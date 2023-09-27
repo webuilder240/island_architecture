@@ -16,5 +16,10 @@ export function setupIntersectionObserver(componentName) {
     );
 
     observer.observe(target);
+    
+    return observer
   }
+}
+export function disconnectedIntersectionObserver(observer) {
+  observer.disconnect();
 }

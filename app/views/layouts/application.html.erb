@@ -10,7 +10,10 @@
     <%= javascript_pack_tag 'app' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body data-barba="wrapper">
+    <div id="sidemenu-container"></div>
+    <main data-barba="container" data-barba-namespace="top">
+      <%= yield %>
+    </main>
   </body>
 </html>

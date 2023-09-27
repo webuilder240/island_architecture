@@ -14,8 +14,7 @@ export default {
     return {
       menuItems: [
         { label: 'Home', link: '/' },
-        { label: 'About', link: '/about' },
-        { label: 'Contact', link: '/contact' }
+        { label: 'Posts', link: '/posts' },
       ]
     }
   },
