@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 
-let hasBeenLoaded = false;  // 追加: ロードが完了したかの状態を追跡するフラグ
 const loadAndMountVueApp = async (componentName) => {
   try {
     const { default: Component } = await import(`../${componentName}.vue`);
@@ -13,9 +12,8 @@ const loadAndMountVueApp = async (componentName) => {
 
 const onboardingObserverCallback = (entries, observer, componentName) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting && !hasBeenLoaded) { // 追加: フラグの確認を追加
-      loadAndMountVueApp('App');
-      hasBeenLoaded = true;  // 追加: ロードが完了したときにフラグを更新
+    if (entry.isIntersecting) { // 追加: フラグの確認を追加
+      loadAndMountVueApp(componentName);
       observer.disconnect(); // 追加: 監視を停止
     }
   });

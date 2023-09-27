@@ -1,3 +1,4 @@
+<div id="sidemenu-container"></div>
 <!-- 最初にサーバーサイドでレンダリングされる部分 -->
 <% @posts.each do |post| %>
   <div class="post">
@@ -7,12 +8,3 @@
 <% end %>
 
 <div id="onboarding-container"></div>
-
-<!-- Vue.jsがマウントされる部分 -->
-<%# <div id="infinite-scroll" style="overflow: scroll;">
-  <div v-for="post in posts" :key="post.id" class="post">
-    <h2>{{ post.title }}</h2>
-    <p>{{ post.body }}</p>
-  </div>
-  <div id="observer-target"></div> <!-- Intersection Observerが監視するターゲット -->
-</div> %>
