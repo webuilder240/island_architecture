@@ -1,7 +1,7 @@
 import { onboardingObserverCallback } from './observerCallback.js';
 
 export function setupIntersectionObserver(componentName) {
-  const target = document.querySelector(`#${componentName.toLowerCase()}-container`);
+  const target = document.querySelector(`#${componentName}-container`);
 
   if (target) {
     const observerOptions = {

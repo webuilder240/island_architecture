@@ -4,7 +4,7 @@ const loadAndMountVueApp = async (componentName) => {
   try {
     const { default: Component } = await import(`../${componentName}.vue`);
     const appInstance = createApp(Component);
-    appInstance.mount(`#${componentName.toLowerCase()}-container`);
+    appInstance.mount(`#${componentName}-container`);
   } catch (error) {
     console.error(`Failed to load ${componentName}.vue:`, error);
   }
