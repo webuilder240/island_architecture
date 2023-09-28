@@ -26,7 +26,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .side-menu {
   background-color: #f0f0f0;
   padding: 10px;

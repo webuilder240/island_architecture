@@ -7,11 +7,12 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_pack_tag 'VueWebComponent' %>
     <%= javascript_pack_tag 'app' %>
   </head>
 
   <body data-barba="wrapper">
-    <div id="Sidemenu-container"></div>
+    <side-menu></side-menu>
     <main data-barba="container" data-barba-namespace="top">
       <%= yield %>
     </main>
