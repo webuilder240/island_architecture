@@ -1,17 +1,17 @@
-import { createApp, h } from 'vue';
+import Vue from 'vue';
 
-class VueWebComponent extends HTMLElement {
+class Vue2WebComponent extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     this.observer = null;
-    this.vueApp = null;
+    this.vueInstance = null;
   }
 
   connectedCallback() {
     const options = {
       root: null,
-      rootMargin: '100px',
+      rootMargin: '0px',
       threshold: 0
     };
 
@@ -19,6 +19,8 @@ class VueWebComponent extends HTMLElement {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           this.loadVueInstance();
+        } else {
+          this.unloadVueInstance();
         }
       });
     }, options);
@@ -31,29 +33,23 @@ class VueWebComponent extends HTMLElement {
   }
 
   async loadVueInstance() {
-    if (!this.vueApp) {
+    if (!this.vueInstance) {
       // カスタムエレメントの名前を元にVueコンポーネントを特定
       const componentName = this.kebabToPascalCase(this.localName);
-      const componentModule = await import(`../components/${componentName}.vue`);
-      const AsyncComponent = componentModule.default;
-      
-      this.vueApp = createApp({
-        render() {
-          return h(AsyncComponent);
-        }
-      });
-      this.vueApp.mount(this.shadowRoot);
-      if (this.observer) {
-        this.observer.disconnect();
-        this.observer = null;
-      }
+      const componentModule = await import(`./components/${componentName}.vue`);
+      const AsyncComponent = Vue.extend(componentModule.default);
+
+      this.vueInstance = new Vue({
+        render: h => h(AsyncComponent)
+      }).$mount();
+      this.shadowRoot.appendChild(this.vueInstance.$el);
     }
   }
 
   unloadVueInstance() {
-    if (this.vueApp) {
-      this.vueApp.unmount();
-      this.vueApp = null;
+    if (this.vueInstance) {
+      this.vueInstance.$destroy();
+      this.vueInstance = null;
     }
   }
 
@@ -64,10 +60,10 @@ class VueWebComponent extends HTMLElement {
     this.unloadVueInstance();
   }
 }
-export function defineVueElement(tagName) {
-  class DynamicClass extends VueWebComponent {}
+
+export function defineVue2Element(tagName) {
+  class DynamicClass extends Vue2WebComponent {}
   customElements.define(tagName, DynamicClass);
   return DynamicClass;
 }
-defineVueElement('side-menu');
-defineVueElement('on-boarding');
+// customElements.define('vue2-async-web-component', Vue2WebComponent);
