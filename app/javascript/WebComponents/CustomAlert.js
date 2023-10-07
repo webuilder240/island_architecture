@@ -1,4 +1,4 @@
-export default class CustomMyConfirm extends HTMLElement {
+export default class CustomAlert extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -7,7 +7,6 @@ export default class CustomMyConfirm extends HTMLElement {
 
   connectedCallback() {
     this.shadowRoot.getElementById("confirmButton").addEventListener("click", () => this.resolve(true));
-    this.shadowRoot.getElementById("cancelButton").addEventListener("click", () => this.resolve(false));
   }
 
   resolve(value) {
@@ -46,7 +45,6 @@ export default class CustomMyConfirm extends HTMLElement {
     const html = `
       <p id="message"></p>
       <button id="confirmButton">OK</button>
-      <button id="cancelButton">キャンセル</button>
     `
     this.shadowRoot.innerHTML = `
       <style>${style}</style>
@@ -54,4 +52,4 @@ export default class CustomMyConfirm extends HTMLElement {
     `;
   }
 }
-customElements.define('custom-my-confirm', CustomMyConfirm);
+customElements.define('custom-alert', CustomAlert);

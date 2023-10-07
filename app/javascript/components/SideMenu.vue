@@ -5,15 +5,21 @@
         <a :href="item.link" @click.prevent="handleClick(item)">{{ item.label }}</a>
       </li>
     </ul>
-    <div @click="newAlert">
+    <button type="button" @click="newAlert">
       newAlert
-    </div>
+    </button>
+    <button type="button" @click="newConfirm">
+      newConfirm
+    </button>
   </div>
 </template>
 
 <script>
-import CustomMyAlert from "../WebComponents/CustomMyAlert"
-const customMyAlert = new CustomMyAlert()
+import CustomAlert from "../WebComponents/CustomAlert"
+const customAlert = new CustomAlert()
+
+import CustomConfirm from "../WebComponents/CustomConfirm"
+const customConfirm = new CustomConfirm()
 
 export default {
   data() {
@@ -28,17 +34,21 @@ export default {
     handleClick(item) {
       console.log(`Clicked ${item.label} link`);
     },
-    async newAlert() {
-      const result = await customMyAlert.show('SideMenu.vue mounted')
+    async newConfirm() {
+      const result = await customConfirm.show('SideMenu.vue mounted')
       if (result) {
         console.log('NewAlert mounted confirmed')
       } else {
         console.log('NewAlert mounted canceled')
       }
+    },
+    async newAlert() {
+      await customAlert.show('SideMenu.vue Alerted')
+      console.log('NewAlert mounted confirmed')
     }
   },
   async mounted() {
-    const result = await customMyAlert.show('SideMenu.vue mounted')
+    const result = await customConfirm.show('SideMenu.vue mounted')
     if (result) {
       console.log('SideMenu.vue mounted confirmed')
     } else {
