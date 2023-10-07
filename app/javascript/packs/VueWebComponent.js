@@ -71,3 +71,4 @@ export function defineVueElement(tagName) {
 }
 defineVueElement('side-menu');
 defineVueElement('on-boarding');
+defineVueElement('my-reaction')
