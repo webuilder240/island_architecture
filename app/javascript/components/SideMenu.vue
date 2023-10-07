@@ -5,10 +5,16 @@
         <a :href="item.link" @click.prevent="handleClick(item)">{{ item.label }}</a>
       </li>
     </ul>
+    <div @click="newAlert">
+      newAlert
+    </div>
   </div>
 </template>
 
 <script>
+import CustomMyAlert from "../WebComponents/CustomMyAlert"
+const customMyAlert = new CustomMyAlert()
+
 export default {
   data() {
     return {
@@ -21,6 +27,22 @@ export default {
   methods: {
     handleClick(item) {
       console.log(`Clicked ${item.label} link`);
+    },
+    async newAlert() {
+      const result = await customMyAlert.show('SideMenu.vue mounted')
+      if (result) {
+        console.log('NewAlert mounted confirmed')
+      } else {
+        console.log('NewAlert mounted canceled')
+      }
+    }
+  },
+  async mounted() {
+    const result = await customMyAlert.show('SideMenu.vue mounted')
+    if (result) {
+      console.log('SideMenu.vue mounted confirmed')
+    } else {
+      console.log('SideMenu.vue mounted canceled')
     }
   }
 }
