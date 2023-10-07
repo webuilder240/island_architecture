@@ -47,14 +47,6 @@ export default {
       console.log('NewAlert mounted confirmed')
     }
   },
-  async mounted() {
-    const result = await customConfirm.show('SideMenu.vue mounted')
-    if (result) {
-      console.log('SideMenu.vue mounted confirmed')
-    } else {
-      console.log('SideMenu.vue mounted canceled')
-    }
-  }
 }
 </script>
 
