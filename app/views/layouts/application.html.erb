@@ -12,7 +12,33 @@
   </head>
 
   <body data-barba="wrapper">
-    <side-menu></side-menu>
+    <!-- ヘッダー -->
+    <header>
+        <button id="menuToggle">メニュー</button>
+        <!-- アイコンのサンプル. Font Awesomeを利用するなどして適宜変更してください -->
+        <div class="icons">
+          <i class="icon-sample1">通知</i>
+          <i class="icon-sample2">なんか</i>
+        </div>
+    </header>
+      <!-- サイドメニュー -->
+    <aside id="sideMenu">
+      <!-- ユーザプロフィール情報 -->
+      <div class="profile">
+        <%# <img src="path_to_profile_image" alt="Profile Image"> %>
+        <h3>User Name</h3>
+      </div>
+
+      <!-- メニューリンク -->
+      <nav>
+        <ul>
+          <li><a href="/contents">コンテンツ</a></li>
+          <li><a href="/posts">ブログ</a></li>
+          <li><a href="#">プロフィール</a></li>
+        </ul>
+      </nav>
+    </aside>
+
     <main data-barba="container" data-barba-namespace="top">
       <%= yield %>
     </main>

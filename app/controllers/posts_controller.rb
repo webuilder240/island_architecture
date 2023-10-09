@@ -1,10 +1,11 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ show edit card update destroy ]
 
   # GET /posts or /posts.json
   def index
     params[:page] ||= 1
-    params[:limit] ||= 50
+    params[:limit] ||= 30
+
     @posts = Post.page(params[:page]).per(params[:limit])
   end
 
@@ -15,6 +16,10 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+  end
+
+  def card
+    render partial: 'card', locals: { post: @post }
   end
 
   # GET /posts/1/edit
