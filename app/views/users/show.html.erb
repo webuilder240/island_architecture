@@ -1,0 +1,15 @@
+<turbo-frame id="main-content">
+  <div class="subHeader">
+    <h2> MySubHeader</h2>
+  </div>
+  <p style="color: green"><%= notice %></p>
+
+  <%= render @user %>
+
+  <div>
+    <%= link_to "Edit this user", edit_user_path(@user) %> |
+    <%= link_to "Back to users", users_path %>
+
+    <%= button_to "Destroy this user", @user, method: :delete %>
+  </div>
+</turbo-frame>

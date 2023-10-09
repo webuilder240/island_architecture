@@ -2,6 +2,7 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.23.0",
     "@barba/core": "^2.9.7",
+    "@hotwired/turbo-rails": "^7.3.0",
     "@rails/webpacker": "5.4.4",
     "typescript": "^5.2.2",
     "vue": "^3.3.4",

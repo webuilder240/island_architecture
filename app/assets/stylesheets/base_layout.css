@@ -45,6 +45,23 @@ header {
 main {
   margin-left: 250px; /* サイドメニューの幅 */
   padding-top: 60px; /* ヘッダーの高さ + 余白 */
-  padding-left: 15px;
-  padding-right: 15px;
+  /* padding-left: 15px;
+  padding-right: 15px; */
+}
+
+.subHeader {
+  position: fixed;
+  top: 50px;
+  width: 100%;
+  height: 100px;
+  background-color: #777;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+#users {
+  padding-top: 10px;
 }

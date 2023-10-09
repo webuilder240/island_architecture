@@ -1,6 +1,8 @@
-<blog-card-list-with-pagination>
-  <div id="blog-list">
-    <%= render partial: 'posts/post', collection: @posts %>
-  </div>
-  <div class="observer-element"></div>
-</blog-card-list-with-pagination>
+<turbo-frame id="main-content">
+  <blog-card-list-with-pagination>
+    <div id="blog-list">
+      <%= render partial: 'posts/post', collection: @posts %>
+    </div>
+    <div class="observer-element"></div>
+  </blog-card-list-with-pagination>
+</turbo-frame>

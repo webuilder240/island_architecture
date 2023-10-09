@@ -1,20 +1,8 @@
 import { BlogCard } from '../WebComponents/BlogCard';
 import { BlogCardListWithPagination } from '../WebComponents/BlogCardListWthPagenation';
-import barba from '@barba/core';
+import "@hotwired/turbo-rails"
 document.addEventListener('DOMContentLoaded', () => {
   require("../WebComponents/Forms/base")
-  barba.init({})
-
-  barba.hooks.before((data) => {
-    const customEvent = new CustomEvent('barbaBefore', { detail: data });
-    window.dispatchEvent(customEvent);
-  });
-
-  barba.hooks.enter((data) => {
-    const customEvent = new CustomEvent('barbaEnter', { detail: data });
-    window.dispatchEvent(customEvent);
-  });
-
   // サイドメニューの表示・非表示を切り替えるためのJavaScript
   document.getElementById('menuToggle').addEventListener('click', function () {
     const menu = document.getElementById('sideMenu');

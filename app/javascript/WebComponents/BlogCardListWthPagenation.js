@@ -9,11 +9,11 @@ export class BlogCardListWithPagination extends HTMLElement {
   connectedCallback() {
     this.restoreState();
     this.setupIntersectionObserver();
-    window.addEventListener('barbaBefore', this.handleBarbaBefore);
+    window.addEventListener("turbo:render", this.handleBarbaBefore)
   }
 
   disconnectedCallback() {
-    window.removeEventListener('barbaBefore', this.handleBarbaBefore);
+    window.removeEventListener("turbo:render", this.handleBarbaBefore)
     this.observer.disconnect();
   }
   handleBarbaBefore() {
@@ -65,16 +65,6 @@ export class BlogCardListWithPagination extends HTMLElement {
     } catch (error) {
       console.error('There was a problem fetching more blog cards:', error);
     }
-  }
-  handlePopState(event) {
-    // DOMContentLoaded イベントが既に発生している場合、直接状態を復元
-    // if (document.readyState === 'loading') {
-    //   document.addEventListener('DOMContentLoaded', () => {
-    //     this.restoreState();
-    //   });
-    // } else {
-    //   this.restoreState();
-    // }
   }
   restoreState() {
     const savedState = JSON.parse(sessionStorage.getItem('blogsState'));

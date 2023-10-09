@@ -8,13 +8,18 @@ class PostsController < ApplicationController
     params[:order] ||= 'created_at DESC'
 
     @posts = Post.order(params[:order]).page(params[:page]).per(params[:limit])
-    if request.xhr?
+    if turbo_frame_request?
+      render :index, layout: false and return
+    elsif request.xhr?
       render partial: 'posts/post', collection: @posts and return
     end
   end
 
   # GET /posts/1 or /posts/1.json
   def show
+    if turbo_frame_request?
+      render :show, layout: false and return
+    end
   end
 
   # GET /posts/new
@@ -69,13 +74,17 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post).permit(:title, :body)
-    end
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+
+  def turbo_frame_request?
+    request.headers["Turbo-Frame"]
+  end
 end

@@ -1,23 +1,25 @@
-<p style="color: green"><%= notice %></p>
+<turbo-frame id="main-content">
+  <p style="color: green"><%= notice %></p>
 
-<div id="<%= dom_id @post %>">
-  <p>
-    <strong>Title:</strong>
-    <%= @post.title %>
-  </p>
+  <div id="<%= dom_id @post %>">
+    <p>
+      <strong>Title:</strong>
+      <%= @post.title %>
+    </p>
 
-  <p>
-    <strong>Body:</strong>
-    <%= @post.body %>
-  </p>
-</div>
+    <p>
+      <strong>Body:</strong>
+      <%= @post.body %>
+    </p>
+  </div>
 
-<div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
+  <div>
+    <%= link_to "Edit this post", edit_post_path(@post) %> |
+    <%= link_to "Back to posts", posts_path %>
 
-  <%= button_to "Destroy this post", @post, method: :delete %>
-</div>
+    <%= button_to "Destroy this post", @post, method: :delete %>
+  </div>
 
 
-<blog-card data-post-id="111"></blog-card>
+  <blog-card data-post-id="111"></blog-card>
+</turbo-frame>
