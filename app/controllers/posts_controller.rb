@@ -5,8 +5,9 @@ class PostsController < ApplicationController
   def index
     params[:page] ||= 1
     params[:limit] ||= 30
+    params[:order] ||= 'created_at DESC'
 
-    @posts = Post.page(params[:page]).per(params[:limit])
+    @posts = Post.order(params[:order]).page(params[:page]).per(params[:limit])
     if request.xhr?
       render partial: 'posts/post', collection: @posts and return
     end

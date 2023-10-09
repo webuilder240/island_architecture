@@ -1,17 +1,33 @@
+const sessionStorageKeyName = "blogsState";
 export class BlogCardListWithPagination extends HTMLElement {
   constructor() {
     super();
     this.page = 1;
+    this.handleBarbaBefore = this.handleBarbaBefore.bind(this); // バインド
   }
 
   connectedCallback() {
+    this.restoreState();
     this.setupIntersectionObserver();
+    window.addEventListener('barbaBefore', this.handleBarbaBefore);
   }
 
+  disconnectedCallback() {
+    window.removeEventListener('barbaBefore', this.handleBarbaBefore);
+    this.observer.disconnect();
+  }
+  handleBarbaBefore() {
+    const state = {
+      page: this.page,
+      html: document.querySelector('#blog-list').innerHTML,
+      scrollPosition: window.scrollY + 50  // 現在のスクロール位置を保存
+    };
+    sessionStorage.setItem(sessionStorageKeyName, JSON.stringify(state));
+  }
   setupIntersectionObserver() {
     const options = {
       root: null,
-      rootMargin: '200px',
+      rootMargin: '100px',
       threshold: 0.1
     };
 
@@ -48,6 +64,27 @@ export class BlogCardListWithPagination extends HTMLElement {
       insertEl.insertAdjacentHTML('beforeend', data);
     } catch (error) {
       console.error('There was a problem fetching more blog cards:', error);
+    }
+  }
+  handlePopState(event) {
+    // DOMContentLoaded イベントが既に発生している場合、直接状態を復元
+    // if (document.readyState === 'loading') {
+    //   document.addEventListener('DOMContentLoaded', () => {
+    //     this.restoreState();
+    //   });
+    // } else {
+    //   this.restoreState();
+    // }
+  }
+  restoreState() {
+    const savedState = JSON.parse(sessionStorage.getItem('blogsState'));
+    if (savedState) {
+      this.page = savedState.page;
+      document.querySelector('#blog-list').innerHTML = savedState.html;
+
+      // 保存されたスクロール位置を復元
+      window.scrollTo(0, savedState.scrollPosition);
+      sessionStorage.removeItem(sessionStorageKeyName);
     }
   }
 }
