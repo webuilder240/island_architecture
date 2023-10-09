@@ -1,10 +1,6 @@
-<!-- 最初にサーバーサイドでレンダリングされる部分 -->
-<% @posts.each do |post| %>
-  <div class="post">
-    <%= link_to post_url(post.id) do %>
-      <h2><%= post.title %></h2>
-      <p><%= post.body %></p>
-    <% end %>
+<blog-card-list-with-pagination>
+  <div id="blog-list">
+    <%= render partial: 'posts/post', collection: @posts %>
   </div>
-<% end %>
-<on-boarding></on-boaring>
+  <div class="observer-element"></div>
+</blog-card-list-with-pagination>

@@ -7,6 +7,9 @@ class PostsController < ApplicationController
     params[:limit] ||= 30
 
     @posts = Post.page(params[:page]).per(params[:limit])
+    if request.xhr?
+      render partial: 'posts/post', collection: @posts and return
+    end
   end
 
   # GET /posts/1 or /posts/1.json

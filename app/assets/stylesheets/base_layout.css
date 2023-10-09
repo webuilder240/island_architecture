@@ -29,6 +29,7 @@ header {
   top: 50px; /* ヘッダーの高さ */
   left: 0;
   overflow-y: auto;
+  display: block;
 }
 
 .profile img {
