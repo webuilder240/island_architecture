@@ -125,13 +125,12 @@ export class FormContainer extends HTMLElement {
     let errorsTmp = errors.get(this)[name]
     valids.forEach(valid => {
       const result = valid.func(input.value, ...valid.params)
+      const index = errorsTmp.findIndex(error => error.name === valid.func.name)
       if (result) {
-        const index = errorsTmp.findIndex(error => error.name === valid.func.name)
         if (index !== -1) {
           errorsTmp.splice(index, 1)
         }
       } else {
-        const index = errorsTmp.findIndex(error => error.name === valid.func.name)
         if (index === -1) {
           errorsTmp.push({name: valid.func.name, result: result})
         }
