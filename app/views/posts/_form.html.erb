@@ -1,27 +1,47 @@
-<%= form_with(model: post) do |form| %>
-  <% if post.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<form-container>
+  <%= form_with(model: post) do |form| %>
+    <% if post.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% post.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :title, style: "display: block" %>
+      <%= form.text_field :title, {required: "", data: {field: "題名", "maxLength": 100}} %>
+      <div data-error="post[title]"></div>
+    </div>
+
+    <div>
+      <%= form.label :body, style: "display: block" %>
+      <%= form.text_area :body, {required: "", data: {field: "本文"}} %>
+      <div data-error="post[body]"></div>
+    </div>
+
+    <div>
+      <%= form.label :area, style: "display: block" %>
+      <select name="post[area]">
+        <option value="JP">JP</option>
+        <option value="US">US</option>
+        <option value="EU">EU</option>
+      </select>
+      <div data-error="post[area]"></div>
+    </div>
+
+    <div>
+      <%= form.label :age, style: "display: block" %>
+      <input type="number" name="post[age]" required min="10" max="120">
+      <div data-error="post[age]"></div>
+    </div>
+
+    <div>
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :body, style: "display: block" %>
-    <%= form.text_area :body %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</form-container>

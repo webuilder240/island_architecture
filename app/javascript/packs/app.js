@@ -1,9 +1,7 @@
 import ReactiveInput from '../WebComponents/ReactiveInput';
 import { ValidatedFormContainer } from '../WebComponents/Forms/base';
-import barba from '@barba/core';
+import { FormContainer } from '../WebComponents/NewForms/FormContainer';
 document.addEventListener('DOMContentLoaded', () => {
-  // customElements.define('validator-form-container', ValidatedFormContainer);
+  customElements.define('form-container', FormContainer);
   require("../WebComponents/Forms/base")
-
-  barba.init({})
 });
