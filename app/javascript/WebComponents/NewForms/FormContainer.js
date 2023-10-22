@@ -106,18 +106,21 @@ export class FormContainer extends HTMLElement {
     this.runValidates(name)
     this.renderErrorTexts(name)
     this.updateSubmitState()
-    // this.querySelector('button').disabled = !allValid;
   }
   updateSubmitState() {
-    // const submitButton = this.querySelector('button');
-    // submitButton.disabled = !this.allValid();
+    const submitButton = this.querySelector('input[type="submit"]');
+    const result = this.allValid()
+    console.log(result)
+    submitButton.disabled = !(result)
   }
   allValid() {
-    return errors.forEach(error => {
-      if (error.length > 0) {
+    const hash = errors.get(this)
+    for (let key in hash) {
+      if (hash[key].length > 0) {
         return false
       }
-    }) 
+    }
+    return true
   }
   runValidates(name) {
     const input = inputs.get(this)[name]
