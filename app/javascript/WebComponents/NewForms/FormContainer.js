@@ -22,11 +22,6 @@ export class FormContainer extends HTMLElement {
       this.settingVariables(el)
       el.addEventListener('change', (e) => this.updateInputState(e));
     })
-
-    // this.updateInputState();
-
-    // const submitButton = this.querySelector('button');
-    // submitButton.addEventListener('click', () => this.submitForm());
   }
 
   disconnectedCallback() {
@@ -37,9 +32,6 @@ export class FormContainer extends HTMLElement {
     this.querySelectorAll('select').forEach(el => {
       el.removeEventListener('change', () => this.updateInputState());
     })
-
-    // const submitButton = this.querySelector('button');
-    // submitButton.removeEventListener('click', () => this.submitForm());
   }
   settingVariables(el) {
     this.setFields(el)
@@ -110,7 +102,6 @@ export class FormContainer extends HTMLElement {
   updateSubmitState() {
     const submitButton = this.querySelector('input[type="submit"]');
     const result = this.allValid()
-    console.log(result)
     submitButton.disabled = !(result)
   }
   allValid() {
@@ -135,7 +126,7 @@ export class FormContainer extends HTMLElement {
         }
       } else {
         if (index === -1) {
-          errorsTmp.push({name: valid.func.name, result: result})
+          errorsTmp.push({name: valid.func.name})
         }
       }
     })
@@ -161,6 +152,11 @@ export class FormContainer extends HTMLElement {
         }
         errorEl.textContent = errorText
       })
+    }
+  }
+  handleSubmit(handle) {
+    if (this.allValid()) {
+      handle(this)
     }
   }
 }
