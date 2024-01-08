@@ -1,4 +1,4 @@
-import {h, createApp} from "vue"
+import {h, createApp, defineAsyncComponent} from "vue"
 class VueIsland extends HTMLElement {
   constructor() {
     super()
@@ -20,12 +20,23 @@ class VueIsland extends HTMLElement {
       const componentName = this.kebabToPascalCase(this.name);
       const componentModule = await import(`../components/${componentName}.vue`);
       const AsyncComponent = componentModule.default;
+      // const AsyncComponent = defineAsyncComponent(() => import(`../components/${componentName}.vue`))
 
-      this.vueInstance = createApp({
-        render() {
-          return h(AsyncComponent, props);
-        }
-      });
+      const hasProps = (Object.keys(props).length > 0)
+      if (hasProps) {
+        this.vueInstance = createApp({
+          render() {
+            return h(AsyncComponent, props);
+          }
+        });
+      } else {
+        this.vueInstance = createApp({
+          render() {
+            return h(AsyncComponent);
+          }
+        });
+      }
+
       this.vueInstance.mount(this);
     }
   }
