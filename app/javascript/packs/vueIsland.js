@@ -1,4 +1,4 @@
-import {h, createApp, defineAsyncComponent} from "vue"
+import { h, createApp, defineAsyncComponent } from 'vue/dist/vue.esm-bundler';
 class VueIsland extends HTMLElement {
   constructor() {
     super()
@@ -7,6 +7,7 @@ class VueIsland extends HTMLElement {
 
   connectedCallback() {
     this.name = this.dataset.name
+    this.mountMode = this.dataset.mountMode === 'true'
     this.loadVueInstance()
   }
 
@@ -17,27 +18,32 @@ class VueIsland extends HTMLElement {
   async loadVueInstance() {
     const props = this.initalProps()
     if (!this.vueInstance) {
-      const componentName = this.kebabToPascalCase(this.name);
-      const componentModule = await import(`../components/${componentName}.vue`);
-      const AsyncComponent = componentModule.default;
-      // const AsyncComponent = defineAsyncComponent(() => import(`../components/${componentName}.vue`))
-
-      const hasProps = (Object.keys(props).length > 0)
-      if (hasProps) {
-        this.vueInstance = createApp({
-          render() {
-            return h(AsyncComponent, props);
-          }
-        });
+      if (this.mountMode) {
+        const componentName = this.kebabToPascalCase(this.name);
+        const componentModule = await import(`../components/${componentName}.js`);
+        this.vueInstance = createApp(componentModule.default)
+        this.vueInstance.mount(this);
       } else {
-        this.vueInstance = createApp({
-          render() {
-            return h(AsyncComponent);
-          }
-        });
-      }
+        const componentName = this.kebabToPascalCase(this.name);
+        const componentModule = await import(`../components/${componentName}.vue`);
+        const AsyncComponent = componentModule.default;
 
-      this.vueInstance.mount(this);
+        const hasProps = (Object.keys(props).length > 0)
+        if (hasProps) {
+          this.vueInstance = createApp({
+            render() {
+              return h(AsyncComponent, props);
+            }
+          });
+        } else {
+          this.vueInstance = createApp({
+            render() {
+              return h(AsyncComponent);
+            }
+          });
+        }
+        this.vueInstance.mount(this);
+      }
     }
   }
 

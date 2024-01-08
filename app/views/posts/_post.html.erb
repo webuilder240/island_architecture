@@ -13,3 +13,7 @@
 <%= vue_island("counter", init_props: { count: 10 }) %>
 <%= vue_island("my-reaction") %>
 <%= vue_island("clock-app") %>
+
+<%= vue_island("dummy-app", mount: true) do %>
+  <h1 v-cloak v-text="title"></h1>
+<% end %>
