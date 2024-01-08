@@ -1,6 +1,7 @@
 <template>
   <div class="counter">
-    <h1>{{ localCount }}</h1>
+    <h1>{{ siteName }}</h1>
+    <h2>{{ localCount }}</h2>
     <button @click="increment">Increment</button>
   </div>
 </template>
@@ -11,6 +12,10 @@ export default {
     count: {
       type: Number,
       default: 0
+    },
+    siteName: {
+      type: String,
+      required: true
     }
   },
   mounted() {

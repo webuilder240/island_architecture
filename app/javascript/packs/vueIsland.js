@@ -20,7 +20,8 @@ class VueIsland extends HTMLElement {
     if (!this.vueInstance) {
       if (this.mountMode) {
         const componentName = this.kebabToPascalCase(this.name);
-        const componentModule = await import(`../components/${componentName}.js`);
+        // const componentModule = await import(`../components/${componentName}.js`);
+        const componentModule = await import(`../components/${componentName}`);
         this.vueInstance = createApp(componentModule.default)
         this.vueInstance.mount(this);
       } else {
