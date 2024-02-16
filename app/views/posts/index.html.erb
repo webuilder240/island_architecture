@@ -1,10 +1,2 @@
 <!-- 最初にサーバーサイドでレンダリングされる部分 -->
-<% @posts.each do |post| %>
-  <div class="post">
-    <%= link_to post_url(post.id) do %>
-      <h2><%= post.title %></h2>
-      <p><%= post.body %></p>
-    <% end %>
-  </div>
-<% end %>
-
+<%= vue2_island("post-index", init_props: {}) %>

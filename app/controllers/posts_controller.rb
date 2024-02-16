@@ -4,12 +4,13 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     params[:page] ||= 1
-    params[:limit] ||= 50
-    @posts = Post.page(params[:page]).per(params[:limit])
+    params[:limit] ||= 100
+    @posts = Post.order("updated_at desc").page(params[:page]).per(params[:limit]).to_a
   end
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post.update!(updated_at: Time.now)
   end
 
   # GET /posts/new
