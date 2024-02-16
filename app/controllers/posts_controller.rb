@@ -5,12 +5,18 @@ class PostsController < ApplicationController
   def index
     params[:page] ||= 1
     params[:limit] ||= 100
-    @posts = Post.order("updated_at desc").page(params[:page]).per(params[:limit]).to_a
+    @posts = Post.all
+    if params[:keyword].present?
+      @posts = @posts.where("title like ?", "%#{params[:keyword]}%")
+    end
+    @posts = @posts.order("updated_at desc").page(params[:page]).per(params[:limit]).to_a
   end
 
   # GET /posts/1 or /posts/1.json
   def show
-    @post.update!(updated_at: Time.now)
+    if rand(2) == 0
+      @post.update!(updated_at: Time.now)
+    end
   end
 
   # GET /posts/new
